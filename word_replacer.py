@@ -128,17 +128,16 @@ def run(text):
 
 def check_standard_word(tag):
 	"""
-	Checks if the values from the compare tuple are found in the exclude array
+	Checks if the values from the tag are found in the exclude array
 	Args:
 		tag (str): Tag from nltk.pos_tag(arr[str]) function
 	Returns:
 		bool: If found in the array return True, False if otherwise
 	"""
 	exclude = ["MD", "DT", "PRP", "$PRP", "IN", "CC", "CD", "EX", "NNP", "NNPS", "POS", "PDT", "RP", "WDT", "SYM", "TO"]
-
-	if tag in exclude: return True
-	else: return False
-
+	
+	return tag in exclude
+	
 def omitted_words(words):
 	"""
 	Checks if new selected word is a composition of multiple words which might include
@@ -160,24 +159,24 @@ def omitted_words(words):
 	
 def determine_word_type(tag):
 	"""
-	Determines the word type by checking the tuple created by the nltk.pos_tag(arr[str]) function. 
+	Determines the word type by checking the tag returned by the nltk.pos_tag(arr[str]) function. 
 	Each word in the array is marked with a special tag which can be used to find the correct type of a word.
-	A selection is given in the arrays.
+	A selection is given in the dictionaries.
 	Args:
-		compare (tuple[str]): Tuple of strings - the word is in the first row, the tag in the second
+		tag : String tag from the nltk.pos_tag(str) function that classified the particular word with a tag
 	Returns:
 		str: Word type as a string
 	"""
-	noun = ["NN", "NNS", "NNPS", "FW"]
-	adjective = ["JJ", "JJR", "JJS"]
-	verb = ["VB", "VBD", "VBG", "VBN", "VBP", "VBZ"]
-	adverb = ["RB", "RBR"]
-
-	if tag in noun: return "noun"
-	elif tag in adjective: return "adjective"
-	elif tag in verb: return "verb"
-	elif tag in adverb: return "adverb"
-	else: return "noun"
+	types = {
+	"noun" : {"NN", "NNS", "NNPS", "FW"},
+	"adjective" : {"JJ", "JJR", "JJS"},
+	"verb" : {"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"},
+	"adverb" : {"RB", "RBR"}
+	}
+	for type_, set_ in types.iteritems():
+		if tag in set_:
+			return type_
+	return "noun"
 
 inactive_switch = Path("/var/www/.inactive")
 if inactive_switch.is_file():
