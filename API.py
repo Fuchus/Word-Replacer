@@ -49,8 +49,9 @@ class API(object):
 			dict: content of the json-page decoded with the requests.object.json() function
 		"""
 		if self.__params:
-			for key, value in self.__params.iteritems():
-				self.__url += '?' + key + '=' + value
+			self.__url += '?{}' + '={}'
+			for parameter, value in self.__params.iteritems():
+				self.__url.format(parameter, value)
 		if self.__api_key:
 			xrequest = {'x-api-key': self.__api_key}
 			r = requests.get(self.url, headers=xrequest, allow_redirects=False)
