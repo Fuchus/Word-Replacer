@@ -7,7 +7,6 @@ There are different variables to set
 """
 
 class API(object):
-	params = {}
 	def __init__(self, url, api_key, **params):
 		"""
 		Init function of the API class
@@ -25,7 +24,6 @@ class API(object):
 		args = parser.parse_args()
 
 		self.__url = url
-		self.__xrequest = xrequest
 		self.__api_key = api_key
 		self.__params = params
 
