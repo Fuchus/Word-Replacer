@@ -42,7 +42,7 @@ def fetch_words(url):
 	Returns:
 		dict: JSON data as python dictionary
 	"""
-	api = API.API(url, False, '')
+	api = API.API(url, '')
 	return api.getr()
 
 def find_max_len(text):
