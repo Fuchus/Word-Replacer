@@ -54,12 +54,12 @@ class API(object):
 				self.__url.format(parameter, value)
 		if self.__api_key:
 			xrequest = {'x-api-key': self.__api_key}
-			r = requests.get(self.url, headers=xrequest, allow_redirects=False)
+			r = requests.get(self.__url, headers=xrequest, allow_redirects=False)
 			r.raise_for_status()
 			if r.status_code == 303: raise requests.exceptions.HTTPError
 			else: return r.json()
 		else:
-			r = requests.get(self.url)# ,allow_redirects=False)
+			r = requests.get(self.__url)# ,allow_redirects=False)
 			self.find_status(r, 500)
 			r.raise_for_status()
 			#if r.status_code == 303: raise requests.exceptions.HTTPError
