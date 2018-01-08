@@ -7,10 +7,8 @@ There are different variables to set
 """
 
 class API(object):
-	__xrequest = ''
-	__api_key = ''
 	params = {}
-	def __init__(self, url, xrequest, api_key, **params):
+	def __init__(self, url, api_key, **params):
 		"""
 		Init function of the API class
 		Args:
@@ -26,10 +24,10 @@ class API(object):
 		parser.add_argument('text', nargs='*')
 		args = parser.parse_args()
 
-		self.url = url
+		self.__url = url
 		self.__xrequest = xrequest
 		self.__api_key = api_key
-		self.params = params
+		self.__params = params
 
 	def find_error(self, request):
 		"""
@@ -41,10 +39,7 @@ class API(object):
 		Returns:
 			bool: True for success, False otherwise
 		"""
-		if 'message' or 'error' in request:
-			return True
-		else:
-			return False
+		return 'message' or 'error' in request
 
 	def getr(self):
 		"""
@@ -53,13 +48,12 @@ class API(object):
 		Returns:
 			dict: content of the json-page decoded with the requests.object.json() function
 		"""
-		if len(self.params) > 0:
+		if self.__params:
 			for key, value in self.params.iteritems():
 				self.url += '?' + key + '=' + value
-		if self.__xrequest == True:
-			self.__xrequest = {'x-api-key': ''}
-			self.__xrequest['x-api-key'] = self.__api_key
-			r = requests.get(self.url, headers=self.__xrequest, allow_redirects=False)
+		if self.__api_key:
+			xrequest = {'x-api-key': self.__api_key}
+			r = requests.get(self.url, headers=xrequest, allow_redirects=False)
 			r.raise_for_status()
 			if r.status_code == 303: raise requests.exceptions.HTTPError
 			else: return r.json()
