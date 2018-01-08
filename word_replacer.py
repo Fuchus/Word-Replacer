@@ -9,16 +9,6 @@ from nltk import pos_tag
 import sys
 from pathlib2 import Path
 
-"""
-def splice_words(text):
-	Split a word in an array of strings by seperating by each space provided in the string
-	Args:
-		text (str): Text to split from
-	Returns:
-		arr[str]: Arrays of strings from the input string
-	return text.split()
-"""
-
 def sanitize_for_url(word):
 	"""
 	Sanitizing of a word with a regex search string - everything that is not alphanumeric, a space or a colon is
@@ -41,21 +31,7 @@ def remove_escapes(word):
 	"""
 	return re.sub(r'\\', '', word)
 
-"""
-def remove_spaces(text):
-	
-	Sanitizing of white spaces in a string with a regex substitution 
-	More than two whitespaces in a row are substituted by an empty set
-	Every space that has no alphanumeric character to follow is substituted by an empty set
-	Args:
-		text (str): String to sanitize
-	Returns:
-		str: Sanitized string
-	
-	#text = re.sub('[\s]{2,}', ' ', text)
-	#text = re.sub('\s(?!\w)', '', text)
-	return ' '.join(text.split())
-"""
+
 def fetch_words(url):
 	"""
 	Retrieving a json result set from the API module
