@@ -55,11 +55,7 @@ def find_max_len(text):
 	Returns:
 		str: Word with the biggest length
 	"""
-	max_length = ''
-	for i in text:
-		if len(i) > len(max_length):
-			max_length = i
-	return max_length
+	return max(text, key=len)
 
 def find_new_word(words, word_type):
 	"""
