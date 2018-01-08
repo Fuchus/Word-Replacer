@@ -6,6 +6,6 @@ setup(
    description='A module that replaces certain words',
    author='Leonardo Martinho',
    author_email='leo@fuchus.de',
-   packages=['word_replacer, API'],  #same as name
-   install_requires=['requests', 'nltk', 'argparse', 're', 'sys', 'pathlib2'], #external packages as dependencies
+   packages=['word_replacer, API'],
+   install_requires=['requests', 'nltk', 'argparse', 're', 'sys', 'pathlib2']
 )
