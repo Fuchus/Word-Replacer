@@ -12,7 +12,6 @@ class API(object):
 		Init function of the API class
 		Args:
 			url (str): URL for the API to call
-			xrequest (bool): Switch if x-request is needed
 			api_key (str): API-key as a string
 			**params (dict): More parameters for the class to parse in the URL
 		Returns:
@@ -54,13 +53,12 @@ class API(object):
 			xrequest = {'x-api-key': self.__api_key}
 			r = requests.get(self.__url, headers=xrequest, allow_redirects=False)
 			r.raise_for_status()
-			if r.status_code == 303: raise requests.exceptions.HTTPError
+			if r.status_code == 303: raise requests.exceptions.HTTPError # if redirect detected
 			else: return r.json()
 		else:
-			r = requests.get(self.__url)# ,allow_redirects=False)
+			r = requests.get(self.__url)
 			self.find_status(r, 500)
 			r.raise_for_status()
-			#if r.status_code == 303: raise requests.exceptions.HTTPError
 			return r.json()
 
 	def find_status(self, request, status):
