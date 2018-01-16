@@ -1,6 +1,6 @@
 import requests
 import argparse
-
+import sys
 """
 This module is a library for a typical API application
 There are different variables to set 
@@ -17,11 +17,6 @@ class API(object):
 		Returns:
 			API.object: Instance of the API class
 		"""
-
-		parser = argparse.ArgumentParser(description='API library that works with requests')
-		parser.add_argument('text', nargs='*')
-		args = parser.parse_args()
-
 		self.__url = url
 		self.__api_key = api_key
 		self.__params = params
@@ -72,3 +67,10 @@ class API(object):
 		"""
 		if request.status_code == status:
 			raise ValueError
+if __name__ == "__main__":
+		if len(sys.argv) > 1:
+			parser = argparse.ArgumentParser(description='API library that works with requests')
+			parser.add_argument(metavar='URL', help='URL to retrieve data', required=True, dest='url', action='store')
+			parser.add_argument('--api_key', help='API Key for this application', dest='api_key', action='store' 
+			args = parser.parse_args()
+	
