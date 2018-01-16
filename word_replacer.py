@@ -4,6 +4,7 @@ Leonardo Martinho
 2017
 """
 import API
+import argparse
 import re
 from nltk import pos_tag
 import sys
@@ -118,7 +119,6 @@ def run(text):
 							continue
 			return remove_escapes(' '.join(result))
 		except ValueError:
-			Path("/var/www/.inactive").touch()
 			return "Try again later. API processing limit reached."
 	else: return "The text you are typing is too long to process. Sorry."
 
@@ -174,8 +174,8 @@ def determine_word_type(tag):
 			return type_
 	return "noun"
 
-inactive_switch = Path("/var/www/.inactive")
-if inactive_switch.is_file():
-	print "Try again later. API processing limit reached."
-	sys.exit()
-if len(sys.argv) > 1: print run(sys.argv[1])
+if __name__ == "__main__":
+	parser = argparse.ArgumentParser(description='A small word replacer')
+	parser.add_argument(metavar='text', dest='text', action='store')
+	args = parser.parse_args()
+	print run(args.text)
