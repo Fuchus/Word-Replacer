@@ -71,6 +71,6 @@ if __name__ == "__main__":
 		if len(sys.argv) > 1:
 			parser = argparse.ArgumentParser(description='API library that works with requests')
 			parser.add_argument(metavar='URL', help='URL to retrieve data', required=True, dest='url', action='store')
-			parser.add_argument('--api_key', help='API Key for this application', dest='api_key', action='store' 
+			parser.add_argument('--api_key', help='API Key for this application', dest='api_key', action='store') 
 			args = parser.parse_args()
 	
