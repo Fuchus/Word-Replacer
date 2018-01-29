@@ -74,6 +74,7 @@ def find_new_word(words, word_type):
 	word_categories = ["sim", "syn"]
 	word_list = words.get(word_type, "")
 	for tag in (x for x in word_categories if x in word_list):
+		word_list = word_list.get(tag)
 		new_word = find_max_len(word_list)
 		return new_word
 	raise API.requests.exceptions.HTTPError
