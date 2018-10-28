@@ -49,12 +49,11 @@ class API(object):
 			r = requests.get(self.__url, headers=xrequest, allow_redirects=False)
 			r.raise_for_status()
 			if r.status_code == 303: raise requests.exceptions.HTTPError # if redirect detected
-			else: return r.json()
 		else:
 			r = requests.get(self.__url)
 			self.find_status(r, 500)
 			r.raise_for_status()
-			return r.json()
+		return r.json()
 
 	def find_status(self, request, status):
 		"""
@@ -69,7 +68,7 @@ class API(object):
 			raise ValueError
 if __name__ == "__main__":
 		parser = argparse.ArgumentParser(description='API library that works with requests')
-		parser.add_argument(metavar='URL', help='URL to retrieve data', required=True, dest='url', action='store')
-		parser.add_argument('--api_key', help='API Key for this application', dest='api_key', action='store') 
+		parser.add_argument(metavar='URL', help='URL to retrieve data', dest='url', action='store')
+		parser.add_argument('--api-key', help='API Key for this application', dest='api_key', action='store') 
 		args = parser.parse_args()
-	
+                print(API(args.url, args.api_key).getr())
